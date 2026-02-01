@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #f4c025;
+  --color-background-light: #f8f8f5;
+  --color-background-dark: #0f0f0f;
+
+  --font-amiri: var(--font-amiri), serif;
+  --font-noto: var(--font-noto), sans-serif;
+  --font-manrope: var(--font-manrope), sans-serif;
+
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+}
+
+html,
+body {
+  background-color: #12110D;
+  direction: rtl;
+}
+
+/* Material Symbols Icons */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: inherit;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+}
+
+/* Filled star icon */
+.star-filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.qa {
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  border-color: rgb(244 192 37 / 0.3);
+  background-color: rgb(24 22 17 / 0.5);
+}
