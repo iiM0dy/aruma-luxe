@@ -22,18 +22,16 @@ export default function AddProductPage() {
     const [loading, setLoading] = useState(false)
     const [status, setStatus] = useState('ACTIVE')
     const [formData, setFormData] = useState({
-        nameAr: '',
-        nameEn: '',
-        descriptionAr: '',
-        descriptionEn: '',
+        name: '',
+        description: '',
         price: '',
         category: 'خشبية وشرقية',
         stock: '',
-        sku: '',
         image: '',
         topNotes: '',
         heartNotes: '',
         baseNotes: '',
+        badge: '',
     })
 
     const [uploading, setUploading] = useState(false)
@@ -72,7 +70,7 @@ export default function AddProductPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!formData.nameAr || !formData.nameEn || !formData.price) {
+        if (!formData.name || !formData.price) {
             alert("يرجى ملء الحقول الأساسية")
             return
         }
@@ -230,29 +228,16 @@ export default function AddProductPage() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">الكمية المتوفرة</label>
-                                    <input
-                                        name="stock"
-                                        value={formData.stock}
-                                        onChange={handleChange}
-                                        type="number"
-                                        placeholder="24"
-                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">رقم الموديل (SKU)</label>
-                                    <input
-                                        name="sku"
-                                        value={formData.sku}
-                                        onChange={handleChange}
-                                        type="text"
-                                        placeholder="AL-0000"
-                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
-                                    />
-                                </div>
+                            <div>
+                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">الكمية المتوفرة</label>
+                                <input
+                                    name="stock"
+                                    value={formData.stock}
+                                    onChange={handleChange}
+                                    type="number"
+                                    placeholder="24"
+                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
+                                />
                             </div>
                         </div>
 
@@ -287,36 +272,25 @@ export default function AddProductPage() {
                             هوية المنتج
                         </h3>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 gap-6">
                             <div>
-                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">اسم المنتج (بالعربية)</label>
+                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">اسم المنتج</label>
                                 <input
-                                    name="nameAr"
-                                    value={formData.nameAr}
+                                    name="name"
+                                    value={formData.name}
                                     onChange={handleChange}
                                     type="text"
                                     placeholder="مثل: عطر العمود الملكي"
                                     className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all font-medium"
                                 />
                             </div>
-                            <div>
-                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold text-left" dir="ltr">Product Name (English)</label>
-                                <input
-                                    name="nameEn"
-                                    value={formData.nameEn}
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="Example: Royal Oud"
-                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all font-medium text-left" dir="ltr"
-                                />
-                            </div>
                         </div>
 
                         <div>
-                            <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">وصف العطر (بالعربية)</label>
+                            <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">وصف العطر</label>
                             <textarea
-                                name="descriptionAr"
-                                value={formData.descriptionAr}
+                                name="description"
+                                value={formData.description}
                                 onChange={handleChange}
                                 rows={6}
                                 placeholder="اكتب قصة هذا العطر ومكوناته الفريدة..."

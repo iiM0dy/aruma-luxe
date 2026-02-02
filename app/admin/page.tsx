@@ -16,7 +16,7 @@ export default function AdminDashboard() {
             .then(data => {
                 setStats({
                     products: data.length,
-                    categories: Array.from(new Set(data.map((p: any) => p.category))).length
+                    categories: Array.from(new Set(data.map((p: { category: any }) => p.category))).length
                 })
             })
     }, [])

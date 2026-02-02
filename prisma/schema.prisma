@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -20,40 +20,28 @@ model User {
 
 model Category {
   id        Int       @id @default(autoincrement())
-  nameAr    String
-  nameEn    String
-  slug      String    @unique
-  products  Product[]
+  name      String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  products  Product[]
 }
 
 model Product {
-  id            Int      @id @default(autoincrement())
-  sku           String   @unique @default(cuid())
-  nameAr        String
-  nameEn        String
-  descriptionAr String
-  descriptionEn String?
-  price         Float
-  image         String
-  images        String[]
-
-  categoryId Int?
-  category   Category? @relation(fields: [categoryId], references: [id])
-
-  slug   String @unique
-  status String @default("ACTIVE")
-  stock  Int    @default(0)
-
-  topNotes   String?
-  heartNotes String?
-  baseNotes  String?
-
-  badge      String?
-  rating     Float   @default(5.0)
-  numReviews Int     @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  image       String
+  categoryId  Int?
+  slug        String    @unique
+  status      String    @default("ACTIVE")
+  stock       Int       @default(0)
+  topNotes    String?
+  heartNotes  String?
+  baseNotes   String?
+  badge       String?
+  numReviews  Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  category    Category? @relation(fields: [categoryId], references: [id])
 }

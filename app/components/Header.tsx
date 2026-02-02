@@ -18,16 +18,13 @@ const Header = () => {
             <h1 className="text-2xl font-bold tracking-tight text-white">AROMA LUXE</h1>
           </div>
           <nav className="hidden md:flex items-center gap-8 text-white">
-            <a className="text-sm font-medium hover:text-primary transition-colors" href="/">الرئيسية</a>
-            <a className="text-sm font-medium hover:text-primary transition-colors" href="/store">المتجر</a>
-            <a className="text-sm font-medium hover:text-primary transition-colors" href="/who-are-we">من نحن</a>
-            <a className="text-sm font-medium hover:text-primary transition-colors" href="/contact-us">اتصل بنا</a>
+            <Link className="text-sm font-medium hover:text-primary transition-colors" href="/">الرئيسية</Link>
+            <Link className="text-sm font-medium hover:text-primary transition-colors" href="/store">المتجر</Link>
+            <Link className="text-sm font-medium hover:text-primary transition-colors" href="/who-are-we">من نحن</Link>
+            <Link className="text-sm font-medium hover:text-primary transition-colors" href="/contact-us">اتصل بنا</Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button className="p-2 rounded-lg bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
-            <span className="material-symbols-outlined text-white">language</span>
-          </button>
           <Link href="/login" className="p-2 rounded-lg bg-white/5 border border-white/10 hover:border-primary/50 transition-colors">
             <span className="material-symbols-outlined text-white">person</span>
           </Link>

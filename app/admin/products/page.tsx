@@ -14,7 +14,7 @@ import {
 } from 'react-icons/lu'
 
 export default function AdminProductsPage() {
-    const [products, setProducts] = useState<any[]>([])
+    const [products, setProducts] = useState<Record<string, any>[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -117,17 +117,17 @@ export default function AdminProductsPage() {
                                     <td className="px-6 py-6">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 rounded-xl overflow-hidden bg-[#0D0D0D] border border-white/5 p-1">
-                                                <img src={product.image || 'https://via.placeholder.com/200'} alt={product.nameAr} className="w-full h-full object-cover rounded-lg" />
+                                                <img src={product.image || 'https://via.placeholder.com/200'} alt={product.name} className="w-full h-full object-cover rounded-lg" />
                                             </div>
                                             <div>
-                                                <p className="font-bold text-sm tracking-tight">{product.nameAr}</p>
-                                                <p className="text-[10px] text-gray-500 mt-0.5" dir="ltr">{product.sku}</p>
+                                                <p className="font-bold text-sm tracking-tight">{product.name}</p>
+                                                <p className="text-[10px] text-gray-500 mt-0.5" dir="ltr">#{product.id}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
                                         <span className="text-[10px] font-bold bg-white/5 px-3 py-1.5 rounded-lg text-gray-400 border border-white/5">
-                                            {product.category?.nameAr || 'غير محدد'}
+                                            {product.category?.name || 'غير محدد'}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 font-bold text-sm text-[#F9C02E]">

@@ -44,19 +44,17 @@ export async function PUT(
         // Prepare update data. Note: category string is filtered out as it causes Prisma errors (relation mismatch).
         // To update category, we would need to look up categoryId or change logic.
         const updateData: any = {
-            nameAr: data.nameAr,
-            nameEn: data.nameEn,
-            descriptionAr: data.descriptionAr,
-            descriptionEn: data.descriptionEn,
+            name: data.name,
+            description: data.description,
             price: parseFloat(data.price),
             image: data.image,
-            images: data.images,
-            sku: data.sku,
             status: data.status,
             stock: parseInt(data.stock),
             topNotes: data.topNotes,
             heartNotes: data.heartNotes,
             baseNotes: data.baseNotes,
+            badge: data.badge,
+            categoryId: data.categoryId ? parseInt(data.categoryId) : (await prisma.category.findFirst({ where: { name: data.category } }))?.id
         }
 
         const product = await prisma.product.update({

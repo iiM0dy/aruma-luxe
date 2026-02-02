@@ -26,21 +26,21 @@ export default function EditProductPage() {
     const [saving, setSaving] = useState(false)
     const [status, setStatus] = useState('ACTIVE')
     const [formData, setFormData] = useState({
-        nameAr: '',
-        nameEn: '',
-        descriptionAr: '',
-        descriptionEn: '',
+        name: '',
+        description: '',
         price: '',
         category: 'خشبية وشرقية',
         stock: '',
-        sku: '',
         image: '',
         topNotes: '',
         heartNotes: '',
         baseNotes: '',
+        badge: '',
     })
 
     const [uploading, setUploading] = useState(false)
+
+    // ... handleFileUpload same as new ...
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -71,34 +71,31 @@ export default function EditProductPage() {
 
     useEffect(() => {
         if (id) {
-            // We don't have a single GET endpoint yet, but we can fetch all and filter or add an endpoint
-            // For now, let's assume we can fetch it if we had a GET /api/products/[id]
-            // I'll add the individual GET to the API route next
-            fetch(`/api/products`)
+            fetch(`/api/products/${id}`)
                 .then(res => res.json())
-                .then(data => {
-                    const product = data.find((p: any) => p.id === parseInt(id as string))
-                    if (product) {
+                .then(product => {
+                    if (product && !product.error) {
                         setFormData({
-                            nameAr: product.nameAr,
-                            nameEn: product.nameEn,
-                            descriptionAr: product.descriptionAr,
-                            descriptionEn: product.descriptionEn || '',
+                            name: product.name,
+                            description: product.description,
                             price: product.price.toString(),
-                            category: product.category,
+                            category: product.category ? product.category.name : '', // Or handle category mapping better
                             stock: product.stock.toString(),
-                            sku: product.sku,
                             image: product.image,
                             topNotes: product.topNotes || '',
                             heartNotes: product.heartNotes || '',
                             baseNotes: product.baseNotes || '',
+                            badge: product.badge || '',
                         })
                         setStatus(product.status)
                     }
                     setLoading(false)
                 })
+                .catch(() => setLoading(false));
         }
     }, [id])
+
+    // ... handleChange and handleSubmit ...
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
@@ -111,7 +108,7 @@ export default function EditProductPage() {
 
         try {
             const res = await fetch(`/api/products/${id}`, {
-                method: 'PUT', // or PATCH
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, status })
             })
@@ -146,7 +143,7 @@ export default function EditProductPage() {
                         <LuPlus size={10} />
                         <span className="text-gray-300">تعديل المنتج</span>
                     </nav>
-                    <h1 className="text-4xl font-bold tracking-tight">تعديل المنتج: {formData.nameAr}</h1>
+                    <h1 className="text-4xl font-bold tracking-tight">تعديل المنتج: {formData.name}</h1>
                 </div>
 
                 <div className="flex gap-4">
@@ -162,7 +159,7 @@ export default function EditProductPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Same form content as new/page.tsx (simplified for reuse illustration) */}
+                {/* Same form content as new/page.tsx */}
                 <div className="lg:col-span-1 space-y-8">
                     <div className="bg-[#141414] border border-white/5 p-6 rounded-3xl space-y-4">
                         <h3 className="flex items-center gap-2 font-bold text-sm">
@@ -219,21 +216,104 @@ export default function EditProductPage() {
                         </div>
                     </div>
 
-                    <div className="bg-[#141414] border border-white/5 p-6 rounded-3xl space-y-4">
-                        <h3 className="font-bold text-sm">التسعير والمخزون</h3>
-                        <input name="price" value={formData.price} onChange={handleChange} type="number" className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm" placeholder="السعر" />
-                        <input name="stock" value={formData.stock} onChange={handleChange} type="number" className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm" placeholder="الكمية" />
+                    <div className="bg-[#141414] border border-white/5 p-6 rounded-3xl space-y-6">
+                        <h3 className="flex items-center gap-2 font-bold text-sm">
+                            <LuDollarSign className="text-[#F9C02E]" />
+                            التسعير والمخزون
+                        </h3>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">السعر (ريال سعودي)</label>
+                                <div className="relative">
+                                    <input
+                                        name="price"
+                                        value={formData.price}
+                                        onChange={handleChange}
+                                        type="number"
+                                        placeholder="750"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
+                                    />
+                                    <span className="absolute left-4 top-3 text-[10px] text-gray-500 font-bold">SAR</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">الفئة</label>
+                                <div className="relative">
+                                    <select
+                                        name="category"
+                                        value={formData.category}
+                                        onChange={handleChange}
+                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 appearance-none cursor-pointer"
+                                    >
+                                        <option>خشبية وشرقية</option>
+                                        <option>زهرية</option>
+                                        <option>منعشة</option>
+                                    </select>
+                                    <LuChevronDown className="absolute left-4 top-3.5 text-gray-500 pointer-events-none" size={16} />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">الكمية المتوفرة</label>
+                                <input
+                                    name="stock"
+                                    value={formData.stock}
+                                    onChange={handleChange}
+                                    type="number"
+                                    placeholder="24"
+                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="pt-4 border-t border-white/5">
+                            <label className="text-[10px] text-gray-500 uppercase block mb-3 mr-1 font-bold">حالة المنتج</label>
+                            <div className="grid grid-cols-2 gap-2 p-1 bg-[#0D0D0D] rounded-xl border border-white/5">
+                                <button
+                                    type="button"
+                                    onClick={() => setStatus('DRAFT')}
+                                    className={`py-2 rounded-lg text-xs font-bold transition-all ${status === 'DRAFT' ? 'bg-white/5 text-white' : 'text-gray-500 hover:text-gray-300'}`}
+                                >
+                                    مسودة
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setStatus('ACTIVE')}
+                                    className={`py-2 rounded-lg text-xs font-bold transition-all ${status === 'ACTIVE' ? 'bg-[#F9C02E] text-black' : 'text-gray-500 hover:text-gray-300'}`}
+                                >
+                                    نشط
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div className="lg:col-span-2 space-y-8">
                     <div className="bg-[#141414] border border-white/5 p-8 rounded-[2rem] space-y-6">
                         <h3 className="font-bold text-sm">هوية المنتج</h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <input name="nameAr" value={formData.nameAr} onChange={handleChange} placeholder="الاسم بالعربي" className="bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm" />
-                            <input name="nameEn" value={formData.nameEn} onChange={handleChange} placeholder="Name in English" dir="ltr" className="bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm text-left" />
+                        <div className="grid grid-cols-1 gap-6">
+                            <div>
+                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">اسم المنتج</label>
+                                <input
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    type="text"
+                                    placeholder="مثل: عطر العمود الملكي"
+                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all font-medium"
+                                />
+                            </div>
                         </div>
-                        <textarea name="descriptionAr" value={formData.descriptionAr} onChange={handleChange} rows={6} className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-4 text-sm" placeholder="الوصف"></textarea>
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            rows={6}
+                            className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-4 text-sm"
+                            placeholder="وصف المنتج..."
+                        ></textarea>
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4">

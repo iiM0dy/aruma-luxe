@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs"
 import Credentials from "next-auth/providers/credentials"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-    session: { strategy: "jwt" },
     ...authConfig,
     providers: [
         Credentials({

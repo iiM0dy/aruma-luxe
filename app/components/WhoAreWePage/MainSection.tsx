@@ -40,13 +40,13 @@ const MainSection = () => {
                 />
 
                 {/* Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent"></div>
                 <div className="absolute inset-0 bg-black/10"></div>
 
                 {/* Quote Box */}
                 <div className="absolute bottom-2 right-2 md:bottom-10 md:right-10  border border-primary/30 p-8 backdrop-blur-sm bg-black/20">
                     <p className="serif-text text-2xl text-white italic leading-relaxed text-center font-amiri">
-                        "العطر هو المفتاح الذي يفتح أبواب الذاكرة"
+                        &quot;العطر هو المفتاح الذي يفتح أبواب الذاكرة&quot;
                     </p>
                 </div>
             </div>

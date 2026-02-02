@@ -24,26 +24,24 @@ export async function POST(req: Request) {
     try {
         const data = await req.json()
 
-        // Generate slug from English name if not provided
-        const slug = data.slug || data.nameEn.toLowerCase().replace(/ /g, '-') + '-' + Date.now()
+        // Generate slug from name if not provided
+        const slug = data.slug || data.name.toLowerCase().replace(/ /g, '-') + '-' + Date.now()
 
         const product = await prisma.product.create({
             data: {
-                nameAr: data.nameAr,
-                nameEn: data.nameEn,
-                descriptionAr: data.descriptionAr,
-                descriptionEn: data.descriptionEn,
+                name: data.name,
+                description: data.description,
                 price: parseFloat(data.price),
                 image: data.image,
-                images: data.images || [],
-                categoryId: data.categoryId ? parseInt(data.categoryId) : undefined,
+                categoryId: data.categoryId ? parseInt(data.categoryId) : (await prisma.category.findFirst({ where: { name: data.category } }))?.id,
                 slug: slug,
-                sku: data.sku || `AL-${Math.floor(Math.random() * 10000)}`,
                 status: data.status || "ACTIVE",
                 stock: parseInt(data.stock) || 0,
                 topNotes: data.topNotes,
                 heartNotes: data.heartNotes,
                 baseNotes: data.baseNotes,
+                badge: data.badge,
+                numReviews: 0,
             }
         })
 
