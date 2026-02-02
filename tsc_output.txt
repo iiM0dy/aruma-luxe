@@ -1,9 +1,0 @@
-.next/dev/types/validator.ts(180,31): error TS2344: Type 'typeof import("C:/Users/moham/OneDrive/Desktop/Web/aruma-luxe/app/api/products/%5Bid%5D/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/products/%5Bid%5D">'.
-  Types of property 'PUT' are incompatible.
-    Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ id: number; createdAt: Date; updatedAt: Date; sku: string; nameAr: string; nameEn: string; descriptionAr: string; ... 13 more ...; numReviews: number; }> | NextResponse<...>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{}>; }) => void | Response | Promise<void | Response>'.
-      Types of parameters '__1' and 'context' are incompatible.
-        Type '{ params: Promise<{}>; }' is not assignable to type '{ params: { id: string; }; }'.
-          Types of property 'params' are incompatible.
-            Property 'id' is missing in type 'Promise<{}>' but required in type '{ id: string; }'.
-app/admin/products/%5Bid%5D/edit/page.tsx(17,5): error TS2724: '"react-icons/lu"' has no exported member named 'LuLoader2'. Did you mean 'LuLoader'?
-auth.ts(8,5): error TS2783: 'session' is specified more than once, so this usage will be overwritten.
