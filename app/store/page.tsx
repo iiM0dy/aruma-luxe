@@ -22,6 +22,9 @@ const StorePage = async ({ searchParams }: StorePageProps) => {
     const products = await prisma.product.findMany({
         where: activeCategoryId ? { categoryId: activeCategoryId } : undefined,
         orderBy: { createdAt: "desc" },
+        include: {
+            category: true,
+        },
     });
 
     return (
@@ -42,6 +45,7 @@ const StorePage = async ({ searchParams }: StorePageProps) => {
                     description: p.description,
                     price: p.price,
                     badge: p.badge ?? undefined,
+                    categoryName: p.category?.name,
                 }))}
             />
         </div>

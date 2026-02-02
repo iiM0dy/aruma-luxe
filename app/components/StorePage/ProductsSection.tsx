@@ -8,6 +8,7 @@ interface Product {
     description: string;
     price: number;
     badge?: string;
+    categoryName?: string;
 }
 
 const ProductsSection = ({ products }: { products: Product[] }) => {
@@ -44,6 +45,11 @@ const ProductsSection = ({ products }: { products: Product[] }) => {
 
                     {/* Content */}
                     <div className="flex-1 space-y-2 mb-6">
+                        {product.categoryName && (
+                            <p className="text-xs text-primary/80 font-medium uppercase tracking-wider">
+                                {product.categoryName}
+                            </p>
+                        )}
                         <h3 className="text-xl font-bold group-hover:text-primary transition-colors text-white">
                             {product.name}
                         </h3>
