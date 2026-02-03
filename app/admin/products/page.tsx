@@ -11,7 +11,7 @@ import {
     LuLayoutGrid,
     LuLoader,
     LuSearch,
-    LuMoreVertical
+    LuMoveVertical
 } from 'react-icons/lu'
 
 export default function AdminProductsPage() {
