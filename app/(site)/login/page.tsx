@@ -40,12 +40,8 @@ const LoginPage = () => {
         <main className="relative min-h-screen w-full flex items-center justify-center p-6 overflow-hidden bg-[#0D0D0D]">
             {/* Ambient Background Overlay */}
             <div className="absolute inset-0 z-0">
-                <img
-                    src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=1920"
-                    alt="Luxury Background"
-                    className="w-full h-full object-cover opacity-30 scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D]/80 to-transparent" />
+                <div className='h-screen w-full bg-[#12110D]'>
+                </div>
             </div>
 
             {/* Login Card Container */}
@@ -74,7 +70,7 @@ const LoginPage = () => {
                         <div className="space-y-2">
                             <label className="text-xs font-semibold text-white/70 uppercase tracking-wider px-1">اسم المستخدم</label>
                             <input
-                                className="w-full bg-white/[0.05] border border-white/10 rounded-xl py-4 px-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#F9C02E]/50 focus:bg-white/[0.08] transition-all"
+                                className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#F9C02E]/50 focus:bg-white/8 transition-all"
                                 placeholder="أدخل اسم المستخدم"
                                 type="text"
                                 value={username}
@@ -88,7 +84,7 @@ const LoginPage = () => {
                                 <label className="text-xs font-semibold text-white/70 uppercase tracking-wider">كلمة المرور</label>
                             </div>
                             <input
-                                className="w-full bg-white/[0.05] border border-white/10 rounded-xl py-4 px-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#F9C02E]/50 focus:bg-white/[0.08] transition-all"
+                                className="w-full bg-white/5 border border-white/10 rounded-xl py-4 px-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[#F9C02E]/50 focus:bg-white/8 transition-all"
                                 placeholder="••••••••"
                                 type="password"
                                 value={password}
@@ -98,7 +94,7 @@ const LoginPage = () => {
                         </div>
 
                         <button
-                            className="w-full group relative overflow-hidden bg-[#F9C02E] text-black font-bold py-4 rounded-xl shadow-[0_10px_20px_-5px_rgba(244,192,37,0.3)] hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-50"
+                            className="w-full cursor-pointer group relative overflow-hidden bg-[#F9C02E] text-black font-bold py-4 rounded-xl shadow-[0_10px_20px_-5px_rgba(244,192,37,0.3)] hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-50"
                             type="submit"
                             disabled={loading}
                         >

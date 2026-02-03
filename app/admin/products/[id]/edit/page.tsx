@@ -202,7 +202,7 @@ export default function EditProductPage() {
                             />
                             <label
                                 htmlFor="image-upload"
-                                className={`flex flex-col items-center justify-center aspect-[4/5] w-full rounded-3xl border-2 border-dashed border-white/5 bg-[#0D0D0D] cursor-pointer hover:border-[#F9C02E]/40 hover:bg-[#F9C02E]/5 transition-all overflow-hidden relative ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
+                                className={`flex flex-col items-center justify-center aspect-4/5 w-full rounded-3xl border-2 border-dashed border-white/5 bg-[#0D0D0D] cursor-pointer hover:border-[#F9C02E]/40 hover:bg-[#F9C02E]/5 transition-all overflow-hidden relative ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
                             >
                                 {formData.image ? (
                                     <>
