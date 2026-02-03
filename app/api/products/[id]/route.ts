@@ -41,6 +41,9 @@ export async function PUT(
         const id = parseInt(params.id)
         const data = await req.json()
 
+        const status = data.status || "ACTIVE"
+        const stock = status === "OUT_OF_STOCK" ? 0 : (parseInt(data.stock) || 0)
+
         // Prepare update data. Note: category string is filtered out as it causes Prisma errors (relation mismatch).
         // To update category, we would need to look up categoryId or change logic.
         const updateData: any = {
@@ -48,8 +51,8 @@ export async function PUT(
             description: data.description,
             price: parseFloat(data.price),
             image: data.image,
-            status: data.status,
-            stock: parseInt(data.stock),
+            status: status,
+            stock: stock,
             topNotes: data.topNotes,
             heartNotes: data.heartNotes,
             baseNotes: data.baseNotes,

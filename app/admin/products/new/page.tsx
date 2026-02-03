@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -13,19 +13,24 @@ import {
     LuMountain,
     LuImage,
     LuDollarSign,
-    LuEye,
     LuLoader
 } from 'react-icons/lu'
+
+interface Category {
+    id: number;
+    name: string;
+}
 
 export default function AddProductPage() {
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [status, setStatus] = useState('ACTIVE')
+    const [categories, setCategories] = useState<Category[]>([])
     const [formData, setFormData] = useState({
         name: '',
         description: '',
         price: '',
-        category: 'خشبية وشرقية',
+        categoryId: '',
         stock: '',
         image: '',
         topNotes: '',
@@ -35,6 +40,24 @@ export default function AddProductPage() {
     })
 
     const [uploading, setUploading] = useState(false)
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await fetch('/api/categories')
+                const data = await res.json()
+                if (Array.isArray(data)) {
+                    setCategories(data)
+                    if (data.length > 0) {
+                        setFormData(prev => ({ ...prev, categoryId: data[0].id.toString() }))
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to fetch categories")
+            }
+        }
+        fetchCategories()
+    }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target
@@ -46,13 +69,13 @@ export default function AddProductPage() {
         if (!file) return
 
         setUploading(true)
-        const formData = new FormData()
-        formData.append('file', file)
+        const uploadFormData = new FormData()
+        uploadFormData.append('file', file)
 
         try {
             const res = await fetch('/api/upload', {
                 method: 'POST',
-                body: formData
+                body: uploadFormData
             })
 
             if (res.ok) {
@@ -70,8 +93,8 @@ export default function AddProductPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!formData.name || !formData.price) {
-            alert("يرجى ملء الحقول الأساسية")
+        if (!formData.name || !formData.price || !formData.categoryId) {
+            alert("يرجى ملء الحقول الأساسية واختيار التصنيف")
             return
         }
         setLoading(true)
@@ -80,7 +103,13 @@ export default function AddProductPage() {
             const res = await fetch('/api/products', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, status })
+                body: JSON.stringify({
+                    ...formData,
+                    price: parseFloat(formData.price),
+                    stock: parseInt(formData.stock),
+                    categoryId: parseInt(formData.categoryId),
+                    status
+                })
             })
 
             if (res.ok) {
@@ -97,46 +126,45 @@ export default function AddProductPage() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-6xl mx-auto space-y-8" dir="rtl">
-            {/* Breadcrumbs & Header */}
-            <div className="flex justify-between items-end">
-                <div>
-                    <nav className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-widest mb-2 font-bold">
-                        <Link href="/admin">لوحة القيادة</Link>
-                        <LuPlus size={10} />
-                        <Link href="/admin/products">المنتجات</Link>
-                        <LuPlus size={10} />
-                        <span className="text-gray-300">إضافة منتج جديد</span>
+        <form onSubmit={handleSubmit} className="max-w-6xl mx-auto space-y-6 lg:space-y-10 pb-20" dir="rtl">
+            {/* Header */}
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6">
+                <div className="space-y-2">
+                    <nav className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-widest font-black">
+                        <Link href="/admin/products" className="hover:text-primary transition-colors">المنتجات</Link>
+                        <LuPlus size={10} className="rotate-45" />
+                        <span className="text-gray-300">منتج جديد</span>
                     </nav>
-                    <h1 className="text-4xl font-bold tracking-tight">إضافة منتج فاخر جديد</h1>
-                    <p className="text-gray-500 mt-2">أضف تفاصيل العطر الحصري الخاص بك إلى المتجر</p>
+                    <h1 className="text-3xl lg:text-5xl font-black tracking-tight">إضافة عطر فاخر</h1>
+                    <p className="text-gray-500 text-sm font-medium">أدخل تفاصيل تحفتك العطرية الجديدة</p>
                 </div>
 
-                <div className="flex gap-4">
-                    <button type="button" className="px-6 py-3 bg-[#1A1A1A] border border-white/5 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-white/5 transition-all">
-                        <LuEye size={18} />
-                        <span>معاينة في الموقع</span>
-                    </button>
+                <div className="flex items-center gap-3 w-full lg:w-auto">
+                    <Link
+                        href="/admin/products"
+                        className="px-6 py-4 bg-[#1A1A1A] border border-white/5 rounded-2xl text-xs font-black flex items-center justify-center gap-2 hover:bg-white/10 transition-all text-gray-400 hover:text-white"
+                    >
+                        إلغاء العملية
+                    </Link>
                     <button
                         type="submit"
                         disabled={loading || uploading}
-                        className="px-8 py-3 bg-[#F9C02E] text-black rounded-xl text-sm font-bold shadow-lg shadow-[#F9C02E]/20 hover:scale-[1.02] transition-all flex items-center gap-2 disabled:opacity-50"
+                        className="flex-1 lg:flex-none px-10 py-4 bg-[#F9C02E] text-black rounded-2xl text-xs font-black hover:scale-[1.03] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                     >
-                        {(loading || uploading) && <LuLoader className="animate-spin" size={18} />}
-                        حفظ التغييرات
+                        {loading || uploading ? <LuLoader className="animate-spin" size={18} /> : <LuPlus size={18} />}
+                        <span>تأكيد وإضافة المنتج</span>
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                {/* Left Column: Image Uploads */}
-                <div className="lg:col-span-1 space-y-8">
-                    {/* Image Upload Area */}
-                    <div className="bg-[#141414] border border-white/5 p-6 rounded-3xl space-y-4">
-                        <h3 className="flex items-center gap-2 font-bold text-sm">
-                            <LuImage className="text-[#F9C02E]" />
-                            صورة المنتج
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                {/* Right Column: Image & Settings */}
+                <div className="lg:col-span-4 space-y-6 lg:space-y-8 order-2 lg:order-1">
+                    {/* Image Area */}
+                    <div className="bg-[#141414] border border-white/5 p-6 rounded-[2.5rem] space-y-5">
+                        <h3 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-[#F9C02E]">
+                            <LuImage size={18} />
+                            الصورة الرئيسية <span className="text-[#F9C02E]">*</span>
                         </h3>
 
                         <div className="relative group">
@@ -149,230 +177,201 @@ export default function AddProductPage() {
                             />
                             <label
                                 htmlFor="image-upload"
-                                className={`flex flex-col items-center justify-center aspect-[4/5] w-full rounded-2xl border-2 border-dashed border-white/10 bg-[#0D0D0D] cursor-pointer hover:border-[#F9C02E]/40 hover:bg-white/5 transition-all overflow-hidden relative ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
+                                className={`flex flex-col items-center justify-center aspect-[4/5] w-full rounded-3xl border-2 border-dashed border-white/5 bg-[#0D0D0D] cursor-pointer hover:border-[#F9C02E]/40 hover:bg-[#F9C02E]/5 transition-all overflow-hidden relative ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
                             >
                                 {formData.image ? (
                                     <>
                                         <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
-                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                                            <LuUpload className="text-white" size={32} />
+                                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                                            <div className="bg-white/10 backdrop-blur-md p-4 rounded-full border border-white/20">
+                                                <LuUpload className="text-white" size={24} />
+                                            </div>
                                         </div>
                                     </>
                                 ) : (
-                                    <div className="flex flex-col items-center gap-3 text-gray-500">
-                                        <LuUpload size={32} />
-                                        <span className="text-xs font-bold">اضغط لرفع صورة من جهازك</span>
-                                        <p className="text-[10px] opacity-60">PNG, JPG حتى 5MB</p>
+                                    <div className="flex flex-col items-center gap-4 text-gray-500 text-center p-6">
+                                        <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-2">
+                                            <LuUpload size={28} />
+                                        </div>
+                                        <span className="text-xs font-black block mb-1">ارفع صورة المنتج</span>
                                     </div>
                                 )}
 
                                 {uploading && (
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 rounded-2xl">
-                                        <LuLoader className="text-[#F9C02E] animate-spin mb-2" size={32} />
-                                        <span className="text-xs text-[#F9C02E] font-bold">جاري الرفع...</span>
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 rounded-3xl z-10">
+                                        <LuLoader className="text-[#F9C02E] animate-spin mb-3" size={32} />
+                                        <span className="text-[10px] text-[#F9C02E] font-black uppercase tracking-[0.2em]">جاري الرفع...</span>
                                     </div>
                                 )}
                             </label>
                         </div>
-
-                        <div className="space-y-2">
-                            <label className="text-[10px] text-gray-500 uppercase block mr-1 font-bold">أو رابط صورة مباشر</label>
-                            <input
-                                name="image"
-                                value={formData.image}
-                                onChange={handleChange}
-                                type="text"
-                                placeholder="https://..."
-                                className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-[#F9C02E]/50 text-gray-400"
-                            />
-                        </div>
                     </div>
 
-                    {/* Pricing & Stock */}
-                    <div className="bg-[#141414] border border-white/5 p-6 rounded-3xl space-y-6">
-                        <h3 className="flex items-center gap-2 font-bold text-sm">
-                            <LuDollarSign className="text-[#F9C02E]" />
-                            التسعير والمخزون
+                    {/* Inventory & Status */}
+                    <div className="bg-[#141414] border border-white/5 p-6 lg:p-8 rounded-[2.5rem] space-y-6">
+                        <h3 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-[#F9C02E]">
+                            <LuDollarSign size={18} />
+                            المخزون والسعر
                         </h3>
 
-                        <div className="space-y-4">
-                            <div>
-                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">السعر (ريال سعودي)</label>
+                        <div className="space-y-5">
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase block font-black pr-1">السعر النهائي <span className="text-[#F9C02E]">*</span></label>
                                 <div className="relative">
                                     <input
                                         name="price"
                                         value={formData.price}
                                         onChange={handleChange}
                                         type="number"
-                                        placeholder="750"
-                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
+                                        placeholder="0.00"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-5 text-sm font-black focus:outline-none focus:border-[#F9C02E]/50 focus:bg-[#F9C02E]/5 transition-all"
                                     />
-                                    <span className="absolute left-4 top-3 text-[10px] text-gray-500 font-bold">SAR</span>
+                                    <span className="absolute left-5 top-4 text-[10px] text-gray-500 font-black">SAR</span>
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">الفئة</label>
-                                <div className="relative">
-                                    <select
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 appearance-none cursor-pointer"
-                                    >
-                                        <option>خشبية وشرقية</option>
-                                        <option>زهرية</option>
-                                        <option>منعشة</option>
-                                    </select>
-                                    <LuChevronDown className="absolute left-4 top-3.5 text-gray-500 pointer-events-none" size={16} />
-                                </div>
-                            </div>
-
-                            <div>
-                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">الكمية المتوفرة</label>
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase block font-black pr-1">الكمية المتوفرة <span className="text-[#F9C02E]">*</span></label>
                                 <input
                                     name="stock"
                                     value={formData.stock}
                                     onChange={handleChange}
                                     type="number"
                                     placeholder="24"
-                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50"
+                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-5 text-sm font-black focus:outline-none focus:border-[#F9C02E]/50 focus:bg-[#F9C02E]/5 transition-all"
                                 />
                             </div>
                         </div>
 
-                        <div className="pt-4 border-t border-white/5">
-                            <label className="text-[10px] text-gray-500 uppercase block mb-3 mr-1 font-bold">حالة المنتج</label>
-                            <div className="grid grid-cols-2 gap-2 p-1 bg-[#0D0D0D] rounded-xl border border-white/5">
-                                <button
-                                    type="button"
-                                    onClick={() => setStatus('DRAFT')}
-                                    className={`py-2 rounded-lg text-xs font-bold transition-all ${status === 'DRAFT' ? 'bg-white/5 text-white' : 'text-gray-500 hover:text-gray-300'}`}
-                                >
-                                    مسودة
-                                </button>
+                        <div className="pt-6 border-t border-white/5">
+                            <label className="text-[10px] text-gray-500 uppercase block mb-4 pr-1 font-black">حالة التوفر <span className="text-[#F9C02E]">*</span></label>
+                            <div className="grid grid-cols-1 gap-2">
                                 <button
                                     type="button"
                                     onClick={() => setStatus('ACTIVE')}
-                                    className={`py-2 rounded-lg text-xs font-bold transition-all ${status === 'ACTIVE' ? 'bg-[#F9C02E] text-black' : 'text-gray-500 hover:text-gray-300'}`}
+                                    className={`flex items-center justify-between px-5 py-4 rounded-2xl border transition-all ${status === 'ACTIVE' ? 'bg-[#F9C02E] text-black border-[#F9C02E] shadow-lg shadow-[#F9C02E]/20' : 'bg-[#0D0D0D] border-white/5 text-gray-400'}`}
                                 >
-                                    نشط
+                                    <span className="text-xs font-black">نشط في المتجر</span>
+                                    {status === 'ACTIVE' && <div className="w-2 h-2 rounded-full bg-black animate-pulse"></div>}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setStatus('OUT_OF_STOCK')}
+                                    className={`flex items-center justify-between px-5 py-4 rounded-2xl border transition-all ${status === 'OUT_OF_STOCK' ? 'bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/20' : 'bg-[#0D0D0D] border-white/5 text-gray-400'}`}
+                                >
+                                    <span className="text-xs font-black">نفذ من المخزون</span>
+                                    {status === 'OUT_OF_STOCK' && <div className="w-2 h-2 rounded-full bg-white animate-pulse"></div>}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setStatus('DRAFT')}
+                                    className={`flex items-center justify-between px-5 py-4 rounded-2xl border transition-all ${status === 'DRAFT' ? 'bg-white/10 text-white border-white/10' : 'bg-[#0D0D0D] border-white/5 text-gray-400'}`}
+                                >
+                                    <span className="text-xs font-black">مسودة سرية</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Column: Main Info & Pyramid */}
-                <div className="lg:col-span-2 space-y-8">
-                    {/* Product Identity */}
-                    <div className="bg-[#141414] border border-white/5 p-8 rounded-[2rem] space-y-6">
-                        <h3 className="flex items-center gap-2 font-bold text-sm">
-                            <LuInfo className="text-[#F9C02E]" />
-                            هوية المنتج
+                {/* Left Column: Details & Notes */}
+                <div className="lg:col-span-8 space-y-6 lg:space-y-8 order-1 lg:order-2">
+                    <div className="bg-[#141414] border border-white/5 p-6 lg:p-10 rounded-[2.5rem] space-y-8">
+                        <h3 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-[#F9C02E]">
+                            <LuInfo size={18} />
+                            تفاصيل المنتج الأساسية
                         </h3>
 
-                        <div className="grid grid-cols-1 gap-6">
-                            <div>
-                                <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">اسم المنتج</label>
+                        <div className="space-y-6">
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase block font-black pr-1 tracking-widest">اسم المنتج <span className="text-[#F9C02E]">*</span></label>
                                 <input
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
                                     type="text"
-                                    placeholder="مثل: عطر العمود الملكي"
-                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3.5 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all font-medium"
+                                    placeholder="مثل: عطر العمود الملكي - الإصدار الفاخر"
+                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4.5 px-6 text-base font-black focus:outline-none focus:border-[#F9C02E]/50 focus:bg-[#F9C02E]/2 transition-all"
                                 />
                             </div>
-                        </div>
 
-                        <div>
-                            <label className="text-[10px] text-gray-500 uppercase block mb-1.5 mr-1 font-bold">وصف العطر</label>
-                            <textarea
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                rows={6}
-                                placeholder="اكتب قصة هذا العطر ومكوناته الفريدة..."
-                                className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-4 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all resize-none leading-relaxed"
-                            ></textarea>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] text-gray-500 uppercase block font-black pr-1 tracking-widest">تصنيف المنتج <span className="text-[#F9C02E]">*</span></label>
+                                    <div className="relative">
+                                        <select
+                                            name="categoryId"
+                                            value={formData.categoryId}
+                                            onChange={handleChange}
+                                            className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-[#F9C02E]/50 appearance-none cursor-pointer"
+                                        >
+                                            {categories.length === 0 && <option value="">جاري تحميل التصنيفات...</option>}
+                                            {categories.map(cat => (
+                                                <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                            ))}
+                                        </select>
+                                        <LuChevronDown className="absolute left-6 top-4.5 text-gray-500 pointer-events-none" size={18} />
+                                    </div>
+                                    <Link href="/admin/categories" className="text-[9px] text-[#F9C02E] hover:underline font-bold inline-block mr-1 mt-1">إضافة فئة جديدة +</Link>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] text-gray-500 uppercase block font-black pr-1 tracking-widest">شعار المنتج (Badge)</label>
+                                    <input
+                                        name="badge"
+                                        value={formData.badge}
+                                        onChange={handleChange}
+                                        type="text"
+                                        placeholder="مثل: الأكثر مبيعاً، جديد"
+                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-4 px-6 text-sm font-bold focus:outline-none focus:border-[#F9C02E]/50"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase block font-black pr-1 tracking-widest">قصة العطر والوصف <span className="text-[#F9C02E]">*</span></label>
+                                <textarea
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                    rows={8}
+                                    placeholder="اكتب وصفاً يسحر العملاء..."
+                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-[2rem] py-5 px-6 text-sm font-medium focus:outline-none focus:border-[#F9C02E]/50 transition-all resize-none leading-relaxed"
+                                ></textarea>
+                            </div>
                         </div>
                     </div>
 
                     {/* Olfactive Pyramid */}
-                    <div className="bg-[#141414] border border-white/5 p-8 rounded-[2rem] space-y-8">
-                        <h3 className="flex items-center gap-2 font-bold text-sm">
-                            <LuDroplets className="text-[#F9C02E]" />
-                            الهرم العطري (نوتات العطر)
+                    <div className="bg-[#141414] border border-white/5 p-6 lg:p-10 rounded-[3rem] space-y-10 relative overflow-hidden">
+                        <h3 className="flex items-center gap-2 font-black text-xs uppercase tracking-widest text-[#F9C02E]">
+                            <LuDroplets size={18} />
+                            الهرم العطري والمكونات
                         </h3>
 
-                        <div className="space-y-6">
-                            {/* Top Notes */}
-                            <div className="group">
-                                <div className="flex items-center justify-between mb-3">
-                                    <label className="flex items-center gap-2 text-xs font-bold text-gray-400 group-focus-within:text-[#F9C02E] transition-colors">
-                                        <LuMountain size={16} />
-                                        المكونات العليا (Top Notes)
+                        <div className="grid grid-cols-1 gap-8 relative z-10">
+                            {[
+                                { id: 'topNotes', icon: LuMountain, label: 'الافتتاحية', placeholder: 'نسمات باردة: برغموت، زعفران...' },
+                                { id: 'heartNotes', icon: LuHeart, label: 'قلب العطر', placeholder: 'الروح: ياسمين، ورد طائفي...' },
+                                { id: 'baseNotes', icon: LuDroplets, label: 'القاعدة', placeholder: 'الثبات: خشب العود، مسك فاخر...' },
+                            ].map((note) => (
+                                <div key={note.id} className="group">
+                                    <label className="flex items-center gap-3 text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4 group-focus-within:text-[#F9C02E] transition-all">
+                                        <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center group-focus-within:bg-[#F9C02E]/10 group-focus-within:scale-110 transition-all">
+                                            <note.icon size={16} />
+                                        </div>
+                                        {note.label} <span className="text-[#F9C02E] mr-[-10px]">*</span>
                                     </label>
+                                    <input
+                                        name={note.id}
+                                        value={(formData as any)[note.id]}
+                                        onChange={handleChange}
+                                        type="text"
+                                        placeholder={note.placeholder}
+                                        className="w-full bg-[#0D0D0D] border border-white/5 rounded-2xl py-5 px-6 text-sm font-bold focus:outline-none focus:border-[#F9C02E]/50 focus:bg-[#F9C02E]/2 transition-all"
+                                    />
                                 </div>
-                                <input
-                                    name="topNotes"
-                                    value={formData.topNotes}
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="مثل: البرغموت، الليمون، الفلفل الوردي"
-                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-4 px-5 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all"
-                                />
-                            </div>
-
-                            {/* Heart Notes */}
-                            <div className="group">
-                                <div className="flex items-center justify-between mb-3">
-                                    <label className="flex items-center gap-2 text-xs font-bold text-gray-400 group-focus-within:text-[#F9C02E] transition-colors">
-                                        <LuHeart size={16} />
-                                        قلب العطر (Heart Notes)
-                                    </label>
-                                </div>
-                                <input
-                                    name="heartNotes"
-                                    value={formData.heartNotes}
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="مثل: الياسمين، الورد، الباتشولي"
-                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-4 px-5 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all"
-                                />
-                            </div>
-
-                            {/* Base Notes */}
-                            <div className="group">
-                                <div className="flex items-center justify-between mb-3">
-                                    <label className="flex items-center gap-2 text-xs font-bold text-gray-400 group-focus-within:text-[#F9C02E] transition-colors">
-                                        <LuDroplets size={16} />
-                                        قاعدة العطر (Base Notes)
-                                    </label>
-                                </div>
-                                <input
-                                    name="baseNotes"
-                                    value={formData.baseNotes}
-                                    onChange={handleChange}
-                                    type="text"
-                                    placeholder="مثل: خشب العود، المسك، العنبر"
-                                    className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-4 px-5 text-sm focus:outline-none focus:border-[#F9C02E]/50 transition-all"
-                                />
-                            </div>
+                            ))}
                         </div>
-                    </div>
-
-                    {/* Form Actions (Bottom) */}
-                    <div className="flex justify-end gap-3 pt-4">
-                        <Link href="/admin/products" className="px-10 py-3 rounded-xl text-gray-400 font-bold hover:bg-white/5 transition-all text-sm">إلغاء</Link>
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="px-12 py-4 bg-[#F9C02E] text-black rounded-xl text-sm font-bold shadow-xl shadow-[#F9C02E]/25 hover:scale-[1.03] transition-all active:scale-95 disabled:opacity-50"
-                        >
-                            {loading ? "جاري الحفظ..." : "حفظ التغييرات"}
-                        </button>
                     </div>
                 </div>
             </div>

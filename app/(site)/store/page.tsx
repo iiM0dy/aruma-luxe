@@ -46,6 +46,9 @@ const StorePage = async ({ searchParams }: StorePageProps) => {
                     price: p.price,
                     badge: p.badge ?? undefined,
                     categoryName: p.category?.name,
+                    slug: p.slug,
+                    stock: p.stock,
+                    status: p.status,
                 }))}
             />
         </div>

@@ -27,6 +27,9 @@ export async function POST(req: Request) {
         // Generate slug from name if not provided
         const slug = data.slug || data.name.toLowerCase().replace(/ /g, '-') + '-' + Date.now()
 
+        const status = data.status || "ACTIVE"
+        const stock = status === "OUT_OF_STOCK" ? 0 : (parseInt(data.stock) || 0)
+
         const product = await prisma.product.create({
             data: {
                 name: data.name,
@@ -35,8 +38,8 @@ export async function POST(req: Request) {
                 image: data.image,
                 categoryId: data.categoryId ? parseInt(data.categoryId) : (await prisma.category.findFirst({ where: { name: data.category } }))?.id,
                 slug: slug,
-                status: data.status || "ACTIVE",
-                stock: parseInt(data.stock) || 0,
+                status: status,
+                stock: stock,
                 topNotes: data.topNotes,
                 heartNotes: data.heartNotes,
                 baseNotes: data.baseNotes,

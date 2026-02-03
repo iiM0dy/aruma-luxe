@@ -22,22 +22,22 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         {/* Logo */}
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+        <Link href="/" className="text-xl sm:text-2xl font-bold tracking-tight text-white">
           AROMA LUXE
-        </h1>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 text-white">
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href="/">
+          <Link className="text-lg font-medium hover:text-primary transition-colors" href="/">
             الرئيسية
           </Link>
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href="/store">
+          <Link className="text-lg font-medium hover:text-primary transition-colors" href="/store">
             المتجر
           </Link>
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href="/who-are-we">
+          <Link className="text-lg font-medium hover:text-primary transition-colors" href="/who-are-we">
             من نحن
           </Link>
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href="/contact-us">
+          <Link className="text-lg font-medium hover:text-primary transition-colors" href="/contact-us">
             اتصل بنا
           </Link>
         </nav>
