@@ -1,12 +1,12 @@
 import { prisma } from "@/prisma"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 
 type Params = Promise<{ id: string }>;
 
 export async function DELETE(
-    req: Request,
-    props: { params: Params }
+    request: NextRequest,
+    context: { params: Params }
 ) {
     const session = await auth()
 
@@ -15,8 +15,8 @@ export async function DELETE(
     }
 
     try {
-        const params = await props.params;
-        const id = parseInt(params.id)
+        const { id: idStr } = await context.params
+        const id = parseInt(idStr)
         await prisma.product.delete({
             where: { id }
         })
@@ -27,8 +27,8 @@ export async function DELETE(
 }
 
 export async function PUT(
-    req: Request,
-    props: { params: Params }
+    request: NextRequest,
+    context: { params: Params }
 ) {
     const session = await auth()
 
@@ -37,15 +37,13 @@ export async function PUT(
     }
 
     try {
-        const params = await props.params;
-        const id = parseInt(params.id)
-        const data = await req.json()
+        const { id: idStr } = await context.params
+        const id = parseInt(idStr)
+        const data = await request.json()
 
         const status = data.status || "ACTIVE"
         const stock = status === "OUT_OF_STOCK" ? 0 : (parseInt(data.stock) || 0)
 
-        // Prepare update data. Note: category string is filtered out as it causes Prisma errors (relation mismatch).
-        // To update category, we would need to look up categoryId or change logic.
         const updateData: any = {
             name: data.name,
             description: data.description,
@@ -73,12 +71,12 @@ export async function PUT(
 }
 
 export async function GET(
-    req: Request,
-    props: { params: Params }
+    request: NextRequest,
+    context: { params: Params }
 ) {
     try {
-        const params = await props.params;
-        const id = parseInt(params.id)
+        const { id: idStr } = await context.params
+        const id = parseInt(idStr)
         const product = await prisma.product.findUnique({
             where: { id },
             include: { category: true }

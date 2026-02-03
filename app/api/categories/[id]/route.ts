@@ -1,12 +1,15 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/prisma'
 
+type Params = Promise<{ id: string }>;
+
 export async function DELETE(
-    req: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    context: { params: Params }
 ) {
     try {
-        const id = parseInt(params.id)
+        const { id: idStr } = await context.params
+        const id = parseInt(idStr)
 
         // Optional: Check if products are linked to this category
         const productsCount = await prisma.product.count({
