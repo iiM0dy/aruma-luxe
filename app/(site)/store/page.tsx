@@ -1,6 +1,6 @@
-import BannerSection from "../components/StorePage/BannerSection";
-import ProductsSection from "../components/StorePage/ProductsSection";
-import CategoriesFilter from "../components/StorePage/CategoriesFilter";
+import BannerSection from "@/app/components/StorePage/BannerSection";
+import ProductsSection from "@/app/components/StorePage/ProductsSection";
+import CategoriesFilter from "@/app/components/StorePage/CategoriesFilter";
 import { prisma } from "@/lib/db";
 
 interface StorePageProps {

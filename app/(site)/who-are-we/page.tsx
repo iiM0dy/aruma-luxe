@@ -1,5 +1,5 @@
 import React from 'react'
-import MainSection from '../components/WhoAreWePage/MainSection'
+import MainSection from '@/app/components/WhoAreWePage/MainSection'
 import Image from 'next/image'
 
 const WhoAreWePage = () => {

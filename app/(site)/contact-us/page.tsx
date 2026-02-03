@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Map from '../components/ContactUs/Map'
+import Map from '@/app/components/ContactUs/Map'
 const ContactUsPage = () => {
     return (
         <section className='max-w-[1200px] mx-auto px-4 md:px-40 py-12'>
