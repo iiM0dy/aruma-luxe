@@ -15,8 +15,8 @@ const ContactUsPage = () => {
             <section className="mb-8">
                 <div className="p-6 md:p-8 rounded-2xl border border-primary/30 bg-gradient-to-l from-card-dark to-background-dark flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-6">
-                        <div className="bg-primary/10 p-4 rounded-full border border-primary/20">
-                            <span className="material-symbols-outlined text-primary text-4xl">chat_bubble</span>
+                        <div className="bg-primary/10 size-12 rounded-full p-6 flex items-center justify-center text-primary group-hover:scale-110 transition-transform border-primary/20">
+                            <span className="material-symbols-outlined cursor-default select-none text-primary text-4xl">chat_bubble</span>
                         </div>
                         <div>
                             <h3 className="text-xl font-bold text-white mb-2">تواصل سريع عبر الواتساب</h3>
@@ -32,7 +32,7 @@ const ContactUsPage = () => {
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                 <div className="flex flex-col gap-4 rounded-2xl border border-border-dark bg-card-dark p-8 hover:border-primary/30 transition-all group">
                     <div className="bg-background-dark size-12 rounded-lg flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                        <span className="material-symbols-outlined text-3xl">phone_in_talk</span>
+                        <span className="material-symbols-outlined cursor-default select-none text-3xl">phone_in_talk</span>
                     </div>
                     <div>
                         <h4 className="text-white text-lg font-bold mb-1">خدمة العملاء</h4>
@@ -42,7 +42,7 @@ const ContactUsPage = () => {
                 </div>
                 <div className="flex flex-col gap-4 rounded-2xl border border-border-dark bg-card-dark p-8 hover:border-primary/30 transition-all group">
                     <div className="bg-background-dark size-12 rounded-lg flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                        <span className="material-symbols-outlined text-3xl">photo_camera</span>
+                        <span className="material-symbols-outlined cursor-default select-none text-3xl">photo_camera</span>
                     </div>
                     <div>
                         <h4 className="text-white text-lg font-bold mb-1">تابعنا على إنستغرام</h4>
@@ -55,7 +55,7 @@ const ContactUsPage = () => {
 
             <section className="mb-20">
                 <div className="flex items-center gap-3 mb-8">
-                    <span className="material-symbols-outlined text-primary">location_on</span>
+                    <span className="material-symbols-outlined cursor-default select-none text-primary">location_on</span>
                     <h2 className="text-2xl font-bold text-white">موقعنا في الرياض</h2>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

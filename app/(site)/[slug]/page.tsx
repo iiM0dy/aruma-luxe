@@ -53,9 +53,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Breadcrumbs */}
             <nav className="flex items-center gap-3 text-sm text-gray-500 mb-12 font-amiri tracking-wide">
                 <Link href="/" className="hover:text-primary transition-colors">الرئيسية</Link>
-                <span className="material-symbols-outlined text-xs! opacity-30 transform rotate-180">chevron_right</span>
+                <span className="material-symbols-outlined cursor-default select-none text-xs! opacity-30 transform rotate-180">chevron_right</span>
                 <Link href="/store" className="hover:text-primary transition-colors">المتجر</Link>
-                <span className="material-symbols-outlined text-xs! opacity-30 transform rotate-180">chevron_right</span>
+                <span className="material-symbols-outlined cursor-default select-none text-xs! opacity-30 transform rotate-180">chevron_right</span>
                 <span className="text-primary font-bold">{product.name}</span>
             </nav>
 
@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
                             <h3 className="text-white font-bold mb-6 font-amiri text-2xl flex items-center gap-3">
-                                <span className="material-symbols-outlined text-primary">auto_awesome</span>
+                                <span className="material-symbols-outlined cursor-default select-none text-primary">auto_awesome</span>
                                 التكوين العطري
                             </h3>
                             <div className="space-y-4 font-amiri">

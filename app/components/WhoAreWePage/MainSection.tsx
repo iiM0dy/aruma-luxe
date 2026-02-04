@@ -6,8 +6,6 @@ const MainSection = () => {
         <section className="grid grid-cols-1 lg:grid-cols-2 min-h-[90vh]">
             {/* Content Section */}
             <div className="bg-[#0f0e0c] px-8 md:px-20 lg:px-24 flex flex-col justify-center py-24 order-2 lg:order-1 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full pointer-events-none"></div>
-
                 <div className="max-w-xl relative z-10">
                     <div className="flex items-center gap-4 mb-6">
                         <div className="h-px w-8 bg-primary"></div>
@@ -50,7 +48,7 @@ const MainSection = () => {
                     src="/images/hero-bg2.png"
                     alt="Aroma Luxe Exclusive Collection"
                     fill
-                    className="object-cover transition-transform duration-[3000ms] group-hover:scale-110"
+                    className="object-cover"
                     priority
                     sizes="(max-width: 1024px) 100vw, 50vw"
                 />
@@ -59,8 +57,8 @@ const MainSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
 
                 {/* Quote Box */}
-                <div className="absolute bottom-10 inset-x-10 p-10 backdrop-blur-md bg-black/30 border border-white/10 rounded-2xl transform transition-transform duration-700 hover:-translate-y-2">
-                    <span className="material-symbols-outlined text-primary text-4xl mb-4 opacity-50">format_quote</span>
+                <div className="absolute bottom-10 inset-x-10 p-10 bg-black/60 border border-white/5 rounded-2xl">
+                    <span className="material-symbols-outlined cursor-default select-none text-primary text-4xl mb-4 opacity-50">format_quote</span>
                     <p className="text-2xl md:text-3xl text-white italic leading-relaxed text-center font-amiri">
                         "العطر هو المفتاح الذي يفتح أبواب الذاكرة، وهو الحارس الأمين لكل لحظاتنا الجميلة"
                     </p>

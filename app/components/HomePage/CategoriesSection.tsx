@@ -41,25 +41,20 @@ const CategoriesSection = () => {
             <Link
               key={category.title}
               href={`/store?category=${encodeURIComponent(category.query)}`}
-              className="group relative bg-cover bg-center flex flex-col gap-3 rounded-2xl justify-end p-8 aspect-4/5 overflow-hidden cursor-pointer shadow-2xl"
+              className="group relative bg-cover bg-center flex flex-col gap-3 rounded-2xl justify-end p-8 aspect-4/5 overflow-hidden cursor-pointer shadow-lg border border-white/5 transition-all duration-300"
               style={{
-                backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%), url("${category.image}")`
+                backgroundImage: `linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%), url("${category.image}")`
               }}
             >
-              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-              <div className="z-10 transition-all duration-500 group-hover:translate-y-[-8px]">
-                <p className="text-primary text-xs font-bold uppercase tracking-[0.2em] mb-2 font-noto opacity-80 group-hover:opacity-100">
+              <div className="z-10">
+                <p className="text-primary text-xs font-bold uppercase tracking-[0.2em] mb-2 font-noto opacity-80">
                   {category.tag}
                 </p>
                 <p className="text-white text-3xl font-bold leading-tight font-amiri group-hover:text-primary transition-colors">
                   {category.title}
                 </p>
-                <div className="w-12 h-1 bg-primary mt-4 group-hover:w-full transition-all duration-500 rounded-full"></div>
+                <div className="w-12 h-1 bg-primary mt-4 group-hover:w-20 transition-all duration-300 rounded-full"></div>
               </div>
-
-              {/* Glass overlay on hover */}
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent pointer-events-none translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
             </Link>
           ))}
         </div>

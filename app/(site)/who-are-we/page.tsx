@@ -9,8 +9,6 @@ const WhoAreWePage = () => {
 
       {/* Values Section */}
       <section className="py-32 bg-[#0a0908] relative overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -translate-x-1/2 pointer-events-none"></div>
-
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col items-center text-center mb-20">
             <div className="w-16 h-1 bg-primary rounded-full mb-4"></div>
@@ -38,9 +36,8 @@ const WhoAreWePage = () => {
             ].map((value, idx) => (
               <div key={idx} className="group relative flex flex-col items-center text-center p-12 rounded-[2.5rem] border border-white/5 bg-white/[0.02] hover:border-primary/30 transition-all duration-700 hover:bg-white/[0.04] hover:-translate-y-2">
                 <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700"></div>
-                  <div className="relative size-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary group-hover:text-white transition-colors">
-                    <span className="material-symbols-outlined text-4xl">{value.icon}</span>
+                  <div className="relative size-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary transition-colors">
+                    <span className="material-symbols-outlined cursor-default select-none text-4xl">{value.icon}</span>
                   </div>
                 </div>
                 <h4 className="text-2xl font-bold mb-4 text-white font-amiri">{value.title}</h4>

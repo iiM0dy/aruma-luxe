@@ -5,17 +5,11 @@ import Link from 'next/link';
 const Footer = () => {
     return (
         <footer className="relative border-t border-white/5 bg-[#0a0a0a] pt-20 pb-10 overflow-hidden">
-            {/* Decorative gradient */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
                     <div className="col-span-1 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-6 group">
-                            <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/20 group-hover:scale-110 transition-transform">
-                                <span className="material-symbols-outlined text-primary text-xl">diamond</span>
-                            </div>
-                            <span className="text-xl text-white font-black tracking-widest font-amiri">AROMA LUXE</span>
+                            <span className="text-xl text-white font-black tracking-widest font-amiri group-hover:text-primary transition-colors">AROMA LUXE</span>
                         </Link>
                         <p className="text-white/40 text-base leading-relaxed font-amiri">
                             منذ عام 1995، نسعى لتقديم أجود أنواع العطور والزيوت العطرية المستوحاة من التراث العربي الأصيل مع لمسة عصرية تناسب تطلعاتكم.
@@ -37,19 +31,19 @@ const Footer = () => {
                         <ul className="space-y-5 text-white/50 text-base">
                             <li className="flex items-center gap-4 group cursor-pointer hover:text-white transition-colors">
                                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-all">
-                                    <span className="material-symbols-outlined text-primary text-xl">call</span>
+                                    <span className="material-symbols-outlined cursor-default select-none text-primary text-xl">call</span>
                                 </div>
                                 <Link href="tel:+966500000000" dir="ltr">+966 50 000 0000</Link>
                             </li>
                             <li className="flex items-center gap-4 group cursor-pointer hover:text-white transition-colors">
                                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-all">
-                                    <span className="material-symbols-outlined text-primary text-xl">mail</span>
+                                    <span className="material-symbols-outlined cursor-default select-none text-primary text-xl">mail</span>
                                 </div>
                                 <Link href="mailto:[EMAIL_ADDRESS]">hello@aromaluxe.com</Link>
                             </li>
                             <li className="flex items-center gap-4 group cursor-pointer hover:text-white transition-colors">
                                 <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-all">
-                                    <span className="material-symbols-outlined text-primary text-xl">location_on</span>
+                                    <span className="material-symbols-outlined cursor-default select-none text-primary text-xl">location_on</span>
                                 </div>
                                 <Link href="https://maps.app.goo.gl/FbuZe1PrHRnGBfhz5" className="font-amiri">الرياض، المملكة العربية السعودية</Link>
                             </li>
@@ -66,7 +60,7 @@ const Footer = () => {
                             ].map((social, idx) => (
                                 <a
                                     key={idx}
-                                    className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 text-white text-xl"
+                                    className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all text-white text-xl"
                                     href={social.href}
                                 >
                                     {social.icon}

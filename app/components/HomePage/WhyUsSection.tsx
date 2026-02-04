@@ -39,12 +39,11 @@ const WhyUsSection = () => {
           {cards.map(card => (
             <div
               key={card.id}
-              className="group relative flex flex-col gap-8 rounded-3xl border border-white/5 bg-white/[0.02] p-10 items-center text-center hover:border-primary/50 transition-all duration-500 hover:bg-white/[0.04] hover:translate-y-[-10px]"
+              className="group relative flex flex-col gap-8 rounded-3xl border border-white/5 bg-white/[0.02] p-10 items-center text-center transition-all duration-300 hover:bg-white/[0.04]"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-500"></div>
-                <div className="relative bg-gradient-to-br from-primary/20 to-primary/5 p-6 rounded-2xl text-primary border border-primary/20">
-                  <span className="material-symbols-outlined text-4xl">{card.icon}</span>
+                <div className="relative bg-white/5 p-6 rounded-2xl text-primary border border-white/10 group-hover:border-primary/50 transition-colors">
+                  <span className="material-symbols-outlined cursor-default select-none text-4xl">{card.icon}</span>
                 </div>
               </div>
 
@@ -54,9 +53,6 @@ const WhyUsSection = () => {
                   {card.description}
                 </p>
               </div>
-
-              {/* Decorative corner */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-tr-3xl rounded-bl-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           ))}
         </div>

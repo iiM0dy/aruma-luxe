@@ -43,7 +43,7 @@ const Page = () => {
                         >
                             <h3 className="text-xl font-bold text-primary">{faq.question}</h3>
                             <div className={`flex items-center justify-center w-8 h-8 rounded-full border border-primary/30 transition-all duration-300 ${openIndex === index ? 'bg-primary text-background-dark rotate-180' : 'text-primary group-hover:border-primary'}`}>
-                                <span className="material-symbols-outlined text-xl !leading-none">keyboard_arrow_down</span>
+                                <span className="material-symbols-outlined cursor-default select-none text-xl leading-none!">keyboard_arrow_down</span>
                             </div>
                         </button>
                         <div
