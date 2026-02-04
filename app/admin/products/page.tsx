@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
 import {
     LuPlus,
     LuPencil,
@@ -15,9 +16,15 @@ import {
 } from 'react-icons/lu'
 
 export default function AdminProductsPage() {
+    const searchParams = useSearchParams()
+    const globalSearch = searchParams.get('search') || ''
     const [products, setProducts] = useState<Record<string, any>[]>([])
     const [loading, setLoading] = useState(true)
-    const [searchQuery, setSearchQuery] = useState('')
+    const [searchQuery, setSearchQuery] = useState(globalSearch)
+
+    useEffect(() => {
+        setSearchQuery(globalSearch)
+    }, [globalSearch])
 
     useEffect(() => {
         fetchProducts()
@@ -95,8 +102,15 @@ export default function AdminProductsPage() {
                             type="text"
                             placeholder="بحث في المنتجات..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 pr-10 pl-4 text-xs focus:outline-none focus:border-[#F9C02E]/50 transition-all"
+                            onChange={(e) => {
+                                const val = e.target.value
+                                setSearchQuery(val)
+                                const params = new URLSearchParams(searchParams.toString())
+                                if (val) params.set('search', val)
+                                else params.delete('search')
+                                window.history.replaceState(null, '', `?${params.toString()}`)
+                            }}
+                            className="w-full bg-[#0D0D0D] border border-white/5 rounded-xl py-3 pr-10 pl-4 text-xs focus:outline-none focus:border-[#F9C02E]/50 transition-all font-sans"
                         />
                         <LuSearch className="absolute right-3.5 top-3.5 text-gray-500" size={16} />
                     </div>

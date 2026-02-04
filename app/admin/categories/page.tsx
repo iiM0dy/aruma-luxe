@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { LuPlus, LuTrash2, LuLoader, LuLayoutGrid } from 'react-icons/lu'
+import { useSearchParams } from 'next/navigation'
 
 interface Category {
     id: number;
@@ -10,6 +11,8 @@ interface Category {
 }
 
 export default function AdminCategoriesPage() {
+    const searchParams = useSearchParams()
+    const searchQuery = searchParams.get('search') || ''
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState(true)
     const [newName, setNewName] = useState('')
@@ -18,6 +21,11 @@ export default function AdminCategoriesPage() {
     useEffect(() => {
         fetchCategories()
     }, [])
+
+    const filteredCategories = categories.filter(c =>
+        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        c.id.toString().includes(searchQuery)
+    )
 
     const fetchCategories = async () => {
         try {
@@ -120,14 +128,14 @@ export default function AdminCategoriesPage() {
                                 <LuLoader size={40} className="animate-spin text-[#F9C02E]" />
                                 <p className="text-[10px] font-black uppercase tracking-widest">جاري التحميل...</p>
                             </div>
-                        ) : categories.length === 0 ? (
+                        ) : filteredCategories.length === 0 ? (
                             <div className="flex flex-col items-center justify-center h-[400px] text-gray-500 gap-6">
                                 <LuLayoutGrid size={48} className="opacity-10" />
                                 <p className="text-sm font-bold">لا توجد تصنيفات حالياً</p>
                             </div>
                         ) : (
                             <div className="divide-y divide-white/5">
-                                {categories.map((category) => (
+                                {filteredCategories.map((category) => (
                                     <div key={category.id} className="p-6 lg:p-8 flex items-center justify-between group hover:bg-white/[0.02] transition-all">
                                         <div className="flex items-center gap-4">
                                             <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#F9C02E] group-hover:bg-[#F9C02E] group-hover:text-black transition-all">

@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
     LuLayoutDashboard,
     LuPackage,
@@ -22,7 +22,19 @@ export default function AdminLayout({
     children: React.ReactNode
 }) {
     const pathname = usePathname()
+    const router = useRouter()
+    const searchParams = useSearchParams()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+    const handleSearch = (query: string) => {
+        const params = new URLSearchParams(searchParams.toString())
+        if (query) {
+            params.set('search', query)
+        } else {
+            params.delete('search')
+        }
+        router.push(`${pathname}?${params.toString()}`)
+    }
 
     const menuItems = [
         { name: 'لوحة القيادة', icon: LuLayoutDashboard, href: '/admin' },
@@ -114,16 +126,6 @@ export default function AdminLayout({
                     </div>
 
                     <div className="flex items-center gap-2 lg:gap-8">
-                        {/* Search Bar - Hidden on small mobile */}
-                        <div className="relative hidden md:block">
-                            <input
-                                type="text"
-                                placeholder="بحث سريع..."
-                                className="w-48 lg:w-80 bg-[#1A1A1A] border border-white/5 rounded-2xl py-2.5 pr-10 pl-4 text-xs focus:outline-none focus:border-[#F9C02E]/50 focus:w-64 lg:focus:w-96 transition-all duration-300"
-                            />
-                            <LuSearch className="absolute right-3.5 top-3 text-gray-500" size={16} />
-                        </div>
-
                         <div className="flex items-center gap-2 lg:gap-5">
 
                             <div className="flex items-center gap-3 pr-2 lg:pr-5 border-r border-white/10 ml-1">
