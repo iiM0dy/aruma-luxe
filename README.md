@@ -68,6 +68,7 @@ DATABASE_URL="your_postgresql_connection_string"
 DIRECT_URL="your_postgresql_direct_connection_string"
 AUTH_SECRET="your_nextauth_secret"
 ```
+> ⚠️ Do not commit `.env` files to version control.
 
 ### Installation Steps
 
@@ -115,5 +116,3 @@ The project is architected for **Vercel**. Ensure environment variables are conf
 - [ ] Integration of a payment gateway (e.g., Stripe).
 - [ ] Advanced analytics and sales reporting in the admin panel.
 
-## License
-[MIT License](LICENSE) (Placeholder - Modify as needed)
