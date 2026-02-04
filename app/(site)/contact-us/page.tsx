@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Map from '@/app/components/ContactUs/Map'
 const ContactUsPage = () => {
     return (
-        <section className='max-w-[1200px] mx-auto px-4 md:px-40 py-12'>
+        <section className='max-w-7xl mx-auto px-6 py-12'>
             <section className="mb-12">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                     <div className="max-w-2xl">

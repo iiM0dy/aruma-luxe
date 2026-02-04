@@ -35,7 +35,7 @@ const CategoriesFilter = ({ categories, activeCategoryId }: Props) => {
                 onClick={() => handleClick()}
                 className={`px-8 py-3.5 cursor-pointer rounded-2xl font-bold text-base whitespace-nowrap transition-all duration-500 font-amiri
                 ${!activeCategoryId
-                        ? "bg-primary text-background-dark shadow-lg shadow-primary/20 scale-105"
+                        ? "bg-primary text-background-dark  scale-105"
                         : "bg-white/5 text-white/60 border border-white/10 hover:border-primary/50 hover:bg-white/10"
                     }`}
             >
@@ -48,7 +48,7 @@ const CategoriesFilter = ({ categories, activeCategoryId }: Props) => {
                     onClick={() => handleClick(category.id)}
                     className={`px-8 py-3.5 rounded-2xl cursor-pointer text-base whitespace-nowrap transition-all duration-500 font-amiri
                     ${activeCategoryId === category.id
-                            ? "bg-primary text-background-dark font-bold shadow-lg shadow-primary/20 scale-105"
+                            ? "bg-primary text-background-dark font-bold scale-105"
                             : "bg-white/5 text-white/60 border border-white/10 hover:border-primary/50 hover:bg-white/10"
                         }`}
                 >
