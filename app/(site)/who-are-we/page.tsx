@@ -6,72 +6,87 @@ const WhoAreWePage = () => {
   return (
     <>
       <MainSection />
-      <section className="py-24 bg-[#12110D] border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl font-amiri text-primary mb-4">قيمنا الجوهرية</h3>
-            <div className="h-1 w-20 bg-primary mx-auto"></div>
+
+      {/* Values Section */}
+      <section className="py-32 bg-[#0a0908] relative overflow-hidden">
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -translate-x-1/2 pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col items-center text-center mb-20">
+            <div className="w-16 h-1 bg-primary rounded-full mb-4"></div>
+            <h2 className="text-primary text-sm font-bold uppercase tracking-[0.4em] font-noto mb-2">مبادئنا</h2>
+            <h3 className="text-4xl md:text-6xl font-amiri text-white">قيمنا الجوهرية</h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="flex flex-col items-center text-center p-8 border border-white/5 hover:border-primary/20 transition-all rounded-xl group">
-              <div className="size-16 rounded-full border border-primary/40 flex items-center justify-center mb-6 group-hover:bg-primary/5 transition-colors">
-                <span className="material-symbols-outlined text-primary text-4xl">workspace_premium</span>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: "workspace_premium",
+                title: "الجودة الفائقة",
+                desc: "نلتزم باستخدام أنقى الزيوت العطرية الطبيعية والمكونات المختارة بعناية من مصادرها الأصلية لضمان تجربة فاخرة لا تُنسى."
+              },
+              {
+                icon: "history_edu",
+                title: "الأصالة",
+                desc: "نحافظ على إرث العطارة العربية التقليدية مع دمجها بلمسات عصرية تلبي تطلعات الجيل الجديد من محبي العطور الراقية."
+              },
+              {
+                icon: "diamond",
+                title: "الحصرية",
+                desc: "كل عطر في مجموعتنا هو إصدار فني فريد، صُمم خصيصاً ليعكس شخصية متميزة لا تشبه أحداً غيرك في حضورك الطاغي."
+              }
+            ].map((value, idx) => (
+              <div key={idx} className="group relative flex flex-col items-center text-center p-12 rounded-[2.5rem] border border-white/5 bg-white/[0.02] hover:border-primary/30 transition-all duration-700 hover:bg-white/[0.04] hover:-translate-y-2">
+                <div className="relative mb-8">
+                  <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700"></div>
+                  <div className="relative size-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary group-hover:text-white transition-colors">
+                    <span className="material-symbols-outlined text-4xl">{value.icon}</span>
+                  </div>
+                </div>
+                <h4 className="text-2xl font-bold mb-4 text-white font-amiri">{value.title}</h4>
+                <p className="text-gray-400 leading-relaxed font-amiri text-lg">
+                  {value.desc}
+                </p>
               </div>
-              <h4 className="text-xl font-bold mb-4 text-white font-noto">الجودة الفائقة</h4>
-              <p className="text-white/60 leading-relaxed text-sm font-noto">
-                نلتزم باستخدام أنقى الزيوت العطرية الطبيعية والمكونات المختارة بعناية من مصادرها الأصلية لضمان تجربة فاخرة.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-8 border border-white/5 hover:border-primary/20 transition-all rounded-xl group">
-              <div className="size-16 rounded-full border border-primary/40 flex items-center justify-center mb-6 group-hover:bg-primary/5 transition-colors">
-                <span className="material-symbols-outlined text-primary text-4xl">history_edu</span>
-              </div>
-              <h4 className="text-xl font-bold mb-4 text-white font-noto">الأصالة</h4>
-              <p className="text-white/60 leading-relaxed text-sm font-noto">
-                نحافظ على إرث العطارة العربية التقليدية مع دمجها بلمسات عصرية تلبي تطلعات الجيل الجديد من محبي العطور.
-              </p>
-            </div>
-            <div className="flex flex-col items-center text-center p-8 border border-white/5 hover:border-primary/20 transition-all rounded-xl group">
-              <div className="size-16 rounded-full border border-primary/40 flex items-center justify-center mb-6 group-hover:bg-primary/5 transition-colors">
-                <span className="material-symbols-outlined text-primary text-4xl">diamond</span>
-              </div>
-              <h4 className="text-xl font-bold mb-4 text-white font-noto">الحصرية</h4>
-              <p className="text-white/60 leading-relaxed text-sm font-noto">
-                كل عطر في مجموعتنا هو إصدار فني فريد، صُمم خصيصاً ليعكس شخصية متميزة لا تشبه أحداً غيرك.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-      <section className='mb-24 max-w-7xl mx-auto px-6'>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 h-[600px]'>
-          <div className='relative'>
-            <Image
-              src="/images/gallery-image-1.png"
-              alt="Aroma Luxe Exclusive Collection"
-              fill
-              className="object-cover rounded-2xl"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
-          <div className='grid grid-cols-2 md:grid-cols-1 md:grid-rows-2 gap-6'>
-            <div className='relative '>
+
+      {/* Gallery Section */}
+      <section className='pb-32 bg-[#0a0908] px-6'>
+        <div className="max-w-7xl mx-auto">
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 h-[600px] md:h-[800px]'>
+            <div className='relative group overflow-hidden rounded-[3rem] border border-white/10'>
               <Image
-                src="/images/gallery-image-2.png"
+                src="/images/gallery-image-1.png"
                 alt="Aroma Luxe Exclusive Collection"
                 fill
-                className="object-cover rounded-2xl"
-
+                className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700"></div>
             </div>
-            <div className='relative'>
-              <Image
-                src="/images/gallery-image-3.png"
-                alt="Aroma Luxe Exclusive Collection"
-                fill
-                className="object-cover rounded-2xl"
 
-              />
+            <div className='grid grid-cols-2 md:grid-cols-1 gap-8'>
+              <div className='relative group overflow-hidden rounded-[3rem] border border-white/10'>
+                <Image
+                  src="/images/gallery-image-2.png"
+                  alt="Aroma Luxe Exclusive Collection"
+                  fill
+                  className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700"></div>
+              </div>
+              <div className='relative group overflow-hidden rounded-[3rem] border border-white/10'>
+                <Image
+                  src="/images/gallery-image-3.png"
+                  alt="Aroma Luxe Exclusive Collection"
+                  fill
+                  className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700"></div>
+              </div>
             </div>
           </div>
         </div>

@@ -78,7 +78,6 @@ const LoginPage = () => {
                                 required
                             />
                         </div>
-
                         <div className="space-y-2">
                             <div className="flex justify-between items-center px-1">
                                 <label className="text-xs font-semibold text-white/70 uppercase tracking-wider">كلمة المرور</label>
@@ -92,6 +91,7 @@ const LoginPage = () => {
                                 required
                             />
                         </div>
+
 
                         <button
                             className="w-full cursor-pointer group relative overflow-hidden bg-[#F9C02E] text-black font-bold py-4 rounded-xl shadow-[0_10px_20px_-5px_rgba(244,192,37,0.3)] hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-50"
