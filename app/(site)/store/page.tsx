@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import BannerSection from "@/app/components/StorePage/BannerSection";
 import ProductsSection from "@/app/components/StorePage/ProductsSection";
 import CategoriesFilter from "@/app/components/StorePage/CategoriesFilter";
@@ -9,8 +10,35 @@ interface StorePageProps {
     }>;
 }
 
+const ProductsList = async ({ categoryId }: { categoryId?: number }) => {
+    const products = await prisma.product.findMany({
+        where: categoryId ? { categoryId: categoryId } : undefined,
+        orderBy: { createdAt: "desc" },
+        include: {
+            category: true,
+        },
+    });
+
+    return (
+        <ProductsSection
+            products={products.map((p) => ({
+                id: p.id,
+                image: p.image,
+                name: p.name,
+                description: p.description,
+                price: p.price,
+                badge: p.badge ?? undefined,
+                categoryName: p.category?.name,
+                slug: p.slug,
+                stock: p.stock,
+                status: p.status,
+            }))}
+        />
+    );
+};
+
 const StorePage = async ({ searchParams }: StorePageProps) => {
-    const params = await searchParams; // ✅ REQUIRED IN NEXT 15
+    const params = await searchParams;
     const activeCategoryId = params.category
         ? Number(params.category)
         : undefined;
@@ -19,38 +47,18 @@ const StorePage = async ({ searchParams }: StorePageProps) => {
         orderBy: { name: "asc" },
     });
 
-    const products = await prisma.product.findMany({
-        where: activeCategoryId ? { categoryId: activeCategoryId } : undefined,
-        orderBy: { createdAt: "desc" },
-        include: {
-            category: true,
-        },
-    });
-
     return (
         <div className="max-w-7xl mx-auto px-6 py-12">
             <BannerSection />
 
-            {/* CLIENT FILTER (no reload) */}
             <CategoriesFilter
                 categories={categories}
                 activeCategoryId={activeCategoryId}
             />
 
-            <ProductsSection
-                products={products.map((p) => ({
-                    id: p.id,
-                    image: p.image,
-                    name: p.name,
-                    description: p.description,
-                    price: p.price,
-                    badge: p.badge ?? undefined,
-                    categoryName: p.category?.name,
-                    slug: p.slug,
-                    stock: p.stock,
-                    status: p.status,
-                }))}
-            />
+            <Suspense key={activeCategoryId} fallback={<ProductsSection products={[]} isLoading={true} />}>
+                <ProductsList categoryId={activeCategoryId} />
+            </Suspense>
         </div>
     );
 };

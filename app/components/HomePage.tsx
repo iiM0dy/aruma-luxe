@@ -7,11 +7,11 @@ import ContactContainer from './HomePage/ContactContainer'
 
 const HomePage = () => {
   return (
-    <main className="max-w-[1200px] mx-auto px-10 py-8 w-full">
-      <BannerSection 
-        title="Aroma Luxe" 
-        description="عطور فاخرة بلمسة شرقية تدوم طويلاً" 
-        image="/images/hero-bg.png" 
+    <main className="max-w-7xl mx-auto px-6 py-12">
+      <BannerSection
+        title="Aroma Luxe"
+        description="عطور فاخرة بلمسة شرقية تدوم طويلاً"
+        image="/images/hero-bg.png"
       />
       <CategoriesSection />
       <WhyUsSection />

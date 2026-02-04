@@ -14,7 +14,17 @@ interface Product {
     status: string;
 }
 
-const ProductsSection = ({ products }: { products: Product[] }) => {
+const ProductsSection = ({ products, isLoading }: { products: Product[], isLoading?: boolean }) => {
+    if (isLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-32 text-center group">
+                <p className="text-xl text-primary font-amiri tracking-wide font-bold animate-pulse">
+                    جاري تحميل المنتجات...
+                </p>
+            </div>
+        );
+    }
+
     if (products.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-32 text-center group">
