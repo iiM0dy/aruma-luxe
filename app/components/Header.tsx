@@ -41,7 +41,7 @@ const Header = () => {
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2">
           <span className="text-2xl font-black text-white tracking-widest font-amiri hover:text-primary transition-colors">
-            AROMA LUXE
+            ARUMA LUXE
           </span>
         </Link>
 
@@ -109,7 +109,7 @@ const Header = () => {
         {/* Mobile Header */}
         <div className="h-24 px-8 flex items-center justify-between border-b border-white/5">
           <span className="text-2xl font-bold text-white font-amiri">
-            AROMA LUXE
+            ARUMA LUXE
           </span>
           <button
             onClick={() => setIsMobileMenuOpen(false)}

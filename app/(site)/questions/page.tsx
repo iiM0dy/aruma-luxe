@@ -14,7 +14,7 @@ const Page = () => {
             answer: "نحن فخورون بتقديم خدمات الشحن لجميع مناطق المملكة ودول الخليج. تستغرق عملية التوصيل داخل المدن الرئيسية من 2-4 أيام عمل، وللمناطق الأخرى من 5-7 أيام عمل عبر شركائنا المعتمدين لضمان سلامة وصول عطوركم."
         },
         {
-            question: "ما الذي يميز ثبات عطور Aroma Luxe؟",
+            question: "ما الذي يميز ثبات عطور Aruma Luxe؟",
             answer: "تتميز عطورنا بتركيزات عالية \"Eau de Parfum\" وما فوق، حيث نستخدم زيوت عطرية نقية ومستخلصة بعناية. يمتد ثبات عطورنا على الجلد لأكثر من 12 ساعة، وعلى الملابس لأكثر من 48 ساعة، مع فوحان متميز يليق بذائقتكم الرفيعة."
         },
         {
@@ -31,7 +31,7 @@ const Page = () => {
         <main className="max-w-[960px] mx-auto px-4 py-12 flex flex-col items-center text-[#bab29c]">
             <div className="text-center mb-12">
                 <h1 className="text-primary text-4xl md:text-5xl font-bold tracking-tight mb-4">الأسئلة الشائعة</h1>
-                <p className=" text-lg max-w-2xl mx-auto">كل ما تود معرفته عن خدمات Aroma Luxe المتميزة وتجربة العطور الفاخرة</p>
+                <p className=" text-lg max-w-2xl mx-auto">كل ما تود معرفته عن خدمات Aruma Luxe المتميزة وتجربة العطور الفاخرة</p>
                 <div className="w-24 h-1 bg-primary/30 mx-auto mt-6 rounded-full"></div>
             </div>
             <div className="w-full mb-16 space-y-6">

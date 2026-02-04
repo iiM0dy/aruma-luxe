@@ -48,7 +48,7 @@ const LoginPage = () => {
             <div className="relative z-10 w-full max-w-[460px] animate-in fade-in zoom-in duration-700">
                 {/* Branding Above Card */}
                 <div className="flex flex-col items-center mb-10 text-center">
-                    <h1 className="text-3xl font-bold tracking-[0.2em] text-white mb-2">AROMA LUXE</h1>
+                    <h1 className="text-3xl font-bold tracking-[0.2em] text-white mb-2">ARUMA LUXE</h1>
                     <div className="h-px w-12 bg-[#F9C02E]/50 mb-3" />
                     <p className="text-[#F9C02E] text-sm font-medium tracking-widest uppercase opacity-80">عطور فاخرة</p>
                 </div>

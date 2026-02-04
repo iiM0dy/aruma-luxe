@@ -47,7 +47,7 @@ const ContactUsPage = () => {
                     <div>
                         <h4 className="text-white text-lg font-bold mb-1">تابعنا على إنستغرام</h4>
                         <p className="text-[#bab29c] text-base mb-4">اكتشف أحدث التشكيلات والقصص وراء عطورنا الفاخرة.</p>
-                        <p className="text-primary text-xl font-bold tracking-tight">@aromaluxe.sa</p>
+                        <p className="text-primary text-xl font-bold tracking-tight">@arumaluxe.sa</p>
                     </div>
                 </div>
             </section>

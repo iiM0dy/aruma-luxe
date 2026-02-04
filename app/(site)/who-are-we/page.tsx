@@ -57,7 +57,7 @@ const WhoAreWePage = () => {
             <div className='relative group overflow-hidden rounded-[3rem] border border-white/10'>
               <Image
                 src="/images/gallery-image-1.png"
-                alt="Aroma Luxe Exclusive Collection"
+                alt="Aruma Luxe Exclusive Collection"
                 fill
                 className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -69,7 +69,7 @@ const WhoAreWePage = () => {
               <div className='relative group overflow-hidden rounded-[3rem] border border-white/10'>
                 <Image
                   src="/images/gallery-image-2.png"
-                  alt="Aroma Luxe Exclusive Collection"
+                  alt="Aruma Luxe Exclusive Collection"
                   fill
                   className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 />
@@ -78,7 +78,7 @@ const WhoAreWePage = () => {
               <div className='relative group overflow-hidden rounded-[3rem] border border-white/10'>
                 <Image
                   src="/images/gallery-image-3.png"
-                  alt="Aroma Luxe Exclusive Collection"
+                  alt="Aruma Luxe Exclusive Collection"
                   fill
                   className="object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 />

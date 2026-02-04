@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <main className="max-w-7xl mx-auto px-6 py-12">
       <BannerSection
-        title="Aroma Luxe"
+        title="Aruma Luxe"
         description="عطور فاخرة بلمسة شرقية تدوم طويلاً"
         image="/images/hero-bg.png"
       />

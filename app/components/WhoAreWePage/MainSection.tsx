@@ -13,12 +13,12 @@ const MainSection = () => {
                     </div>
 
                     <h2 className="text-5xl md:text-7xl text-white mb-10 leading-tight font-amiri drop-shadow-lg">
-                        قصة <span className="text-primary italic">Aroma Luxe</span>
+                        قصة <span className="text-primary italic">Aruma Luxe</span>
                     </h2>
 
                     <div className="space-y-8 text-white/70 text-xl leading-relaxed font-amiri font-light">
                         <p className="border-r-2 border-primary/20 pr-6">
-                            بدأت رحلتنا من قلب الصحراء، حيث تلتقي التقاليد العريقة بفن صناعة العطور الحديث. في Aroma Luxe، نؤمن بأن العطر ليس مجرد رائحة، بل هو هوية وتعبير عن الروح.
+                            بدأت رحلتنا من قلب الصحراء، حيث تلتقي التقاليد العريقة بفن صناعة العطور الحديث. في Aruma Luxe، نؤمن بأن العطر ليس مجرد رائحة، بل هو هوية وتعبير عن الروح.
                         </p>
                         <p>
                             تخصصنا في استخلاص أثمن المكونات الشرقية، من العود الملكي النادر إلى مسك الغزال الصافي والورد الطائفي، لنقدم لكم تجربة عطرية لا تُنسى تتميز بالثبات والفوحان الفريد.
@@ -46,7 +46,7 @@ const MainSection = () => {
             <div className="relative h-[60vh] lg:min-h-full overflow-hidden order-1 lg:order-2 group">
                 <Image
                     src="/images/hero-bg2.png"
-                    alt="Aroma Luxe Exclusive Collection"
+                    alt="Aruma Luxe Exclusive Collection"
                     fill
                     className="object-cover"
                     priority

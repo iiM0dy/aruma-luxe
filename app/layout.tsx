@@ -31,7 +31,7 @@ export const notoSansArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
-  title: "Aroma Luxe | عطور فاخرة",
+  title: "Aruma Luxe | عطور فاخرة",
   description: "عطور فاخرة بلمسة شرقية تدوم طويلاً - اكتشف مجموعتنا الحصرية من الروائح",
 };
 

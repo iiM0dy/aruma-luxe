@@ -60,7 +60,7 @@ export default function AdminLayout({
                     <div className="relative h-20 w-40 mb-4 mt-4 lg:mt-0">
                         <Image
                             src="/images/aruma-luxe-logo.png"
-                            alt="Aroma Luxe"
+                            alt="Aruma Luxe"
                             fill
                             className="object-contain"
                         />
