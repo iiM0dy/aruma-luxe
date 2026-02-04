@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { LuPlus, LuTrash2, LuLoader, LuLayoutGrid } from 'react-icons/lu'
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
 interface Category {
     id: number;
@@ -10,7 +11,7 @@ interface Category {
     createdAt: string;
 }
 
-export default function AdminCategoriesPage() {
+function CategoriesContent() {
     const searchParams = useSearchParams()
     const searchQuery = searchParams.get('search') || ''
     const [categories, setCategories] = useState<Category[]>([])
@@ -163,5 +164,17 @@ export default function AdminCategoriesPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function AdminCategoriesPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-[400px]">
+                <LuLoader size={40} className="animate-spin text-[#F9C02E]" />
+            </div>
+        }>
+            <CategoriesContent />
+        </Suspense>
     )
 }

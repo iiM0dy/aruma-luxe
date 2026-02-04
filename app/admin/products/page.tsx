@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import {
     LuPlus,
     LuPencil,
@@ -11,11 +11,10 @@ import {
     LuPackage,
     LuLayoutGrid,
     LuLoader,
-    LuSearch,
-    LuMoveVertical
+    LuSearch
 } from 'react-icons/lu'
 
-export default function AdminProductsPage() {
+function ProductsContent() {
     const searchParams = useSearchParams()
     const globalSearch = searchParams.get('search') || ''
     const [products, setProducts] = useState<Record<string, any>[]>([])
@@ -271,5 +270,17 @@ export default function AdminProductsPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function AdminProductsPage() {
+    return (
+        <Suspense fallback={
+            <div className="flex items-center justify-center min-h-[400px]">
+                <LuLoader size={48} className="animate-spin text-[#F9C02E]" />
+            </div>
+        }>
+            <ProductsContent />
+        </Suspense>
     )
 }

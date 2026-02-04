@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import {
     LuLayoutDashboard,
     LuPackage,
@@ -22,19 +22,7 @@ export default function AdminLayout({
     children: React.ReactNode
 }) {
     const pathname = usePathname()
-    const router = useRouter()
-    const searchParams = useSearchParams()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
-    const handleSearch = (query: string) => {
-        const params = new URLSearchParams(searchParams.toString())
-        if (query) {
-            params.set('search', query)
-        } else {
-            params.delete('search')
-        }
-        router.push(`${pathname}?${params.toString()}`)
-    }
 
     const menuItems = [
         { name: 'لوحة القيادة', icon: LuLayoutDashboard, href: '/admin' },
