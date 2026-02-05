@@ -7,19 +7,19 @@ const CategoriesSection = () => {
     {
       title: 'عطور رجالية',
       image: '/images/men-section.png',
-      query: 'Royal Oud',
+      query: '4',
       tag: 'القوة والفخامة'
     },
     {
       title: 'عطور نسائية',
       image: '/images/women-section.png',
-      query: 'Rare Florals',
+      query: '7',
       tag: 'الأنوثة والرقة'
     },
     {
       title: 'عطور شرقية',
       image: '/images/oriental-section.png',
-      query: 'Oil-Based Perfumes',
+      query: '5',
       tag: 'عبق التراث'
     },
   ]
