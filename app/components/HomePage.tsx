@@ -1,7 +1,7 @@
 import React from 'react'
 import BannerSection from './HomePage/BannerSection'
 import CategoriesSection from './HomePage/CategoriesSection'
-import WhyUsSection from './HomePage/WhyUsSection'
+import FeaturedProducts from './HomePage/FeaturedProducts'
 import CustomersReviews from './HomePage/CustomersReviews'
 import ContactContainer from './HomePage/ContactContainer'
 
@@ -14,7 +14,7 @@ const HomePage = () => {
         image="/images/hero-bg.png"
       />
       <CategoriesSection />
-      <WhyUsSection />
+      <FeaturedProducts />
       <CustomersReviews />
       <ContactContainer />
     </main>

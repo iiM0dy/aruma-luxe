@@ -22,8 +22,8 @@ const WhyUsSection = () => {
     },
   ]
   return (
-    <section className="py-24">
-      <div className="flex flex-col gap-16">
+    <section className="pt-32 bg-[#0a0908] relative overflow-hidden " >
+      <div className="flex flex-col gap-16 max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col gap-4 text-center items-center">
           <div className="w-16 h-1 bg-primary rounded-full mb-2"></div>
           <h2 className="text-primary text-sm font-bold uppercase tracking-[0.4em] font-noto">لماذا أروما لوكس؟</h2>

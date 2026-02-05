@@ -1,11 +1,13 @@
 import React from 'react'
 import MainSection from '@/app/components/WhoAreWePage/MainSection'
 import Image from 'next/image'
+import WhyUsSection from '@/app/components/HomePage/WhyUsSection'
 
 const WhoAreWePage = () => {
   return (
     <>
       <MainSection />
+      <WhyUsSection />
 
       {/* Values Section */}
       <section className="py-32 bg-[#0a0908] relative overflow-hidden">
@@ -34,21 +36,28 @@ const WhoAreWePage = () => {
                 desc: "كل عطر في مجموعتنا هو إصدار فني فريد، صُمم خصيصاً ليعكس شخصية متميزة لا تشبه أحداً غيرك في حضورك الطاغي."
               }
             ].map((value, idx) => (
-              <div key={idx} className="group relative flex flex-col items-center text-center p-12 rounded-[2.5rem] border border-white/5 bg-white/[0.02] hover:border-primary/30 transition-all duration-700 hover:bg-white/[0.04] hover:-translate-y-2">
-                <div className="relative mb-8">
-                  <div className="relative size-20 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary transition-colors">
+              <div
+                key={idx}
+                className="group relative flex flex-col gap-8 rounded-3xl border border-white/5 bg-white/[0.02] p-10 items-center text-center transition-all duration-300 hover:bg-white/[0.04]"
+              >
+                <div className="relative">
+                  <div className="relative bg-white/5 p-6 rounded-2xl text-primary border border-white/10 group-hover:border-primary/50 transition-colors">
                     <span className="material-symbols-outlined cursor-default select-none text-4xl">{value.icon}</span>
                   </div>
                 </div>
-                <h4 className="text-2xl font-bold mb-4 text-white font-amiri">{value.title}</h4>
-                <p className="text-gray-400 leading-relaxed font-amiri text-lg">
-                  {value.desc}
-                </p>
+
+                <div className="flex flex-col gap-4">
+                  <h2 className="text-white text-2xl font-bold font-amiri">{value.title}</h2>
+                  <p className="text-gray-400 text-base leading-relaxed font-light">
+                    {value.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Gallery Section */}
       <section className='pb-32 bg-[#0a0908] px-6'>
